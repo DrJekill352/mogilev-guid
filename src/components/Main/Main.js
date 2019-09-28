@@ -67,7 +67,7 @@ export class MainComponent extends React.Component {
                 </div>
                 <div className={navigationTab === 'MAP' ? 'map-container' : ''}>
                     {navigationTab === 'MAP' && (
-                        <MapComponent tags={location.state.tags && location.state.tags.length > 0 ? location.state.tags : undefined} />
+                        <MapComponent tags={location.state && location.state.tags && location.state.tags.length > 0 ? location.state.tags : undefined} />
                     )}
                     {navigationTab === 'FAVORITE' && (
                         <FavoriteComponent />

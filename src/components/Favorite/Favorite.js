@@ -40,11 +40,14 @@ export class FavoriteComponent extends React.Component {
             <React.Fragment>
                 {attractions && (
                     <TripSelector tripData={attractions.map(({ image, ...attraction }) => {
+                        const id = attraction.name.split(' ').join('')
+
                         return {
                             ...attraction,
                             img: image,
                             likes: this.random(14, 90),
                             distance: this.random(300, 3000),
+                            link: `/attraction/${id}`
                         }
                     })} />
                 )}
