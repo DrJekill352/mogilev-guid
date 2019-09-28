@@ -19,8 +19,13 @@ export class HomeComponent extends React.Component {
     }
 
     buttonsNames = {
-        ru: ['RESET', 'LANG', 'NEXT'] ,
-        en: ['СБРОС', 'ЯЗЫК', 'ДАЛЕЕ']   
+        ru: ['СБРОС', 'ЯЗЫК', 'ДАЛЕЕ'],
+        en: ['RESET', 'LANG', 'NEXT']
+    }
+
+    logoText = {
+        en: 'Choose the most interesrring place you want to visit:',
+        ru: 'Выберите места, которые вы хотите посетить:'
     }
 
     constructor(props) {
@@ -28,17 +33,17 @@ export class HomeComponent extends React.Component {
         const firebaseRows = app.firestore().collection('tags');
         firebaseRows.onSnapshot(snapshot => {
             const res = snapshot.docs.map(d => d.data())[0];
-            this.setState({ tags: this.getTagLanguage(res), allTags: res });
+            this.setState({ tags: this.getTagLanguage(res, 'en'), allTags: res });
         })
     }
 
-    getTagLanguage = (allTags) => {
-        if (this.state.language === "en") {
+    getTagLanguage = (allTags, lang) => {
+        if (lang === "en") {
             const tags = allTags.en.map((d) => {
                 return ({ label: d, state: false })
             })
             return (tags);
-        } else if (this.state.language === "ru") {
+        } else if (lang === "ru") {
             const tags = allTags.ru.map((d) => {
                 return ({ label: d, state: false })
             })
@@ -48,14 +53,6 @@ export class HomeComponent extends React.Component {
 
     componentDidMount() {
 
-    }
-
-    getLogoText = () => {
-        if (this.state.language === "en") {
-            return ('Choose the most interesrring place you want to visit:');
-        } else if (this.state.language === "ru") {
-            return ('Выберите места, которые вы хотите посетить:');
-        }
     }
 
     resetTags = () => {
@@ -68,10 +65,11 @@ export class HomeComponent extends React.Component {
     }
 
     changeLang = () => {
-        const tagsLang = this.getTagLanguage(this.state.allTags);
         let lang = this.state.language;
         lang = this.state.language === "en" ? "ru" : "en";
-        this.setState({ tags: tagsLang, language: lang });
+        const tagsLang = this.getTagLanguage(this.state.allTags, lang);
+        this.setState({ tags: tagsLang,  language: lang });
+
     }
 
     sendTagsToMap = () => {
@@ -114,7 +112,7 @@ export class HomeComponent extends React.Component {
                 </div>
                 <div className="home__logo">
                     <div className="home__logoImgWrap"><img src={logo} alt={"logo"} className="home_logoImg" /></div>
-                    <div className="home__logoText">{this.getLogoText()} </div>
+                    <div className="home__logoText">{this.logoText[this.state.language]} </div>
                 </div>
                 <div className="home__tags">
                     <BubblesComponent tags={tags} tagStateCallback={this.updateTagsState}> </BubblesComponent>
