@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { YMaps, Map, Placemark } from 'react-yandex-maps';
 import './Map.css';
 import { app } from '../../firebase';
-import { attribute } from 'postcss-selector-parser';
+import { Math } from 'core-js';
 
 const propTypes = {
     tags: PropTypes.arrayOf(PropTypes.string)
@@ -17,12 +17,12 @@ export class MapComponent extends React.Component {
         super(props)
 
         this.state = {
-            attractions: []
+            attractions: [],
+            coords: {
+                latitude: 53.908906,
+                longitude: 30.342816,
+            },
         }
-
-        setTimeout(() => {
-
-        }, 0)
     }
 
     componentDidMount() {
@@ -36,18 +36,26 @@ export class MapComponent extends React.Component {
                 }
                 return accumulator
             }, [])
-            this.setState({ attractions: attractions })
+            this.setState({ attractions: attractions }, this.getGeoLocation)
         })
     }
 
-    handlePlacemarkClick = () => {
-        const { attractions } = this.state
-        attractions.forEach(attraction => {
-            const id = attraction.name.split(' ').join('')
-            const element = document.querySelector(`#${id}`)
-            console.log('WW', element)
-            element && element.addEventListener('click', event => console.log('EVENT', event))
-        })
+    getGeoLocation = () => {
+        navigator.geolocation.getCurrentPosition(({ coords }) => this.setState({ coords: coords }))
+    }
+
+    calculateTime = (coords) => {
+        const { coords: userCoords } = this.state
+        const lat = Math.abs(userCoords.latitude - coords.latitude)
+        const long = Math.abs(userCoords.longitude - coords.longitude)
+        const time = Math.round(Math.sqrt((lat * lat) + (long * long)) * 1000)
+
+        if (time < 60) {
+            return `~${time}m`
+        }
+        const hours = time / 60
+        const minutes = time % 60
+        return `~${hours}h ${minutes}m`
     }
 
     render() {
@@ -65,14 +73,15 @@ export class MapComponent extends React.Component {
                         return (
                             <Placemark
                                 key={id}
-                                onClick={this.handlePlacemarkClick}
                                 geometry={[attraction.geo.latitude, attraction.geo.longitude]}
                                 options={({
                                     preset: 'islands#circleIcon',
                                     interactivityModel: 'default#opaque'
                                 })}
                                 properties={({
-                                    balloonContentHeader: `<button onclick="()=>console.log('Test')     " id=${id} >${attraction.name}</button>`
+                                    balloonContentHeader: `<span> ${attraction.name}</span> `,
+                                    balloonContentBody: `<i>${this.calculateTime({ latitude: attraction.geo.latitude, longitude: attraction.geo.longitude })}</i>`,
+                                    balloonContentFooter: `<a class="attraction-link" href="http://localhost:3000/attraction/${id}"> More details </a> `
                                 })}
                             />
                         )
