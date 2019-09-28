@@ -1,6 +1,8 @@
 .map {
+  /* position: relative; */
   width: 100vw;
-  height: 86vh;
+  height: 100vh;
+  z-index: 1;
 }
 
 .ymaps-layers-pane {
@@ -9,4 +11,15 @@
   -webkit-filter: grayscale(1);
   -moz-filter: grayscale(1);
   -o-filter: grayscale(1);
+}
+
+.attraction-link {
+  text-decoration: none;
+}
+
+.fab {
+  position: absolute;
+  bottom: 26px;
+  z-index: 40;
+  /* right: 16px; */
 }
