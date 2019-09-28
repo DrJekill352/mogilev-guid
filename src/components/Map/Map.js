@@ -35,6 +35,7 @@ export class MapComponent extends React.Component {
         firebaseRows.onSnapshot(snapshot => {
             const attractions = snapshot.docs.reduce((accumulator, currentValue) => {
                 const data = currentValue.data()
+                console.log('WWW', data.tags)
                 if (data.tags && data.tags.find(tag => tags.find(t => t === tag))) {
                     accumulator.push(data)
                 }
