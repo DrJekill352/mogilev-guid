@@ -23,8 +23,8 @@ export class MapComponent extends React.Component {
             attractions: [],
             isShowMe: false,
             coords: {
-                latitude: 53.908906,
-                longitude: 30.342816,
+                latitude: 53.894948,
+                longitude: 30.330837,
             },
         }
     }
@@ -58,7 +58,7 @@ export class MapComponent extends React.Component {
         if (time < 60) {
             return `~${time}m`
         }
-        const hours = time / 60
+        const hours = Math.round(time / 60)
         const minutes = time % 60
         return `~${hours}h ${minutes}m`
     }
@@ -81,7 +81,7 @@ export class MapComponent extends React.Component {
                         className='map'
                         controls={['zoomControl', 'fullscreenControl']}
                         options={{ yandexMapDisablePoiInteractivity: true, suppressMapOpenBlock: true }}
-                        state={{ center: [coords.latitude, coords.longitude], zoom: 16 }}
+                        state={{ center: [53.894948, 30.330837], zoom: 16 }}
                     >
                         {attractions.map(attraction => {
                             const id = attraction.name.split(' ').join('')

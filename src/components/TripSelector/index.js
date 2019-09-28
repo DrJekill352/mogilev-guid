@@ -9,6 +9,8 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import GridList from '@material-ui/core/GridList';
+import Link from '@material-ui/core/Link';
+
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import ListSubheader from '@material-ui/core/ListSubheader';
@@ -42,9 +44,11 @@ export class TripSelector extends React.Component {
 				<div>
 					<div>
 						<ListSubheader component="div" className="list-header">
-							<Fab color="primary" className="menu-button">
-								<MenuIcon />
-							</Fab>
+							<Link to='/'>
+								<Fab color="primary" className="menu-button">
+									<MenuIcon />
+								</Fab>
+							</Link>
 							<p>{this.props.tripData.length} places total</p>
 							<Fab color="primary" className="menu-button">
 								<SearchIcon />

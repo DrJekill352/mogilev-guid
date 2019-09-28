@@ -24,7 +24,7 @@ export class HomeComponent extends React.Component {
     }
 
     logoText = {
-        en: 'Choose the most interesrring place you want to visit:',
+        en: 'Choose the most interesting place you want to visit:',
         ru: 'Выберите места, которые вы хотите посетить:'
     }
 
