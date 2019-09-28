@@ -44,8 +44,6 @@ export class BubblesComponent extends React.Component {
     }
 
     render() {
-        console.log (window.screen.height/3);
-        console.log (window.screen.width);
         return (
 
             <BubbleChart

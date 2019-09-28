@@ -13,8 +13,14 @@ export class HomeComponent extends React.Component {
     state = {
         language: "en",
         tags: {},
+        allTags: {},
         redirect: false,
         selsctedTags: []
+    }
+
+    buttonsNames = {
+        en: ['RESET', 'LANG', 'NEXT'] ,
+        ru: ['СБРОС', 'ЯЗЫК', 'ДАЛЕЕ']   
     }
 
     constructor(props) {
@@ -22,18 +28,22 @@ export class HomeComponent extends React.Component {
         const firebaseRows = app.firestore().collection('tags');
         firebaseRows.onSnapshot(snapshot => {
             const res = snapshot.docs.map(d => d.data())[0];
-            if (this.state.language === "en") {
-                const tags = res.en.map((d) => {
-                    return ({ label: d, state: false })
-                })
-                this.setState({ tags: tags });
-            } else if (this.state.language === "ru") {
-                const tags = res.ru.map((d) => {
-                    return ({ label: d, state: false })
-                })
-                this.setState({ tags: tags });
-            }
+            this.setState({ tags: this.getTagLanguage(res), allTags: res });
         })
+    }
+
+    getTagLanguage = (allTags) => {
+        if (this.state.language === "en") {
+            const tags = allTags.en.map((d) => {
+                return ({ label: d, state: false })
+            })
+            return (tags);
+        } else if (this.state.language === "ru") {
+            const tags = allTags.ru.map((d) => {
+                return ({ label: d, state: false })
+            })
+            return (tags);
+        }
     }
 
     componentDidMount() {
@@ -55,6 +65,13 @@ export class HomeComponent extends React.Component {
             return (d);
         })
         this.setState({ tags: data });
+    }
+
+    changeLang = () => {
+        const tagsLang = this.getTagLanguage(this.state.allTags);
+        let lang = this.state.language;
+        lang = this.state.language === "en" ? "ru" : "en";
+        this.setState({ tags: tagsLang, language: lang });
     }
 
     sendTagsToMap = () => {
@@ -103,8 +120,9 @@ export class HomeComponent extends React.Component {
                     <BubblesComponent tags={tags} tagStateCallback={this.updateTagsState}> </BubblesComponent>
                 </div>
                 <div className="home__buttons">
-                    <Button color="primary" className="home__button" onClick={this.resetTags}>Reset</Button>
-                    <Button color="primary"><Link className="home__button" to={{ pathname: '/main', state: { tags: this.state.selectedTags } }}>Next</Link></Button>
+                    <Button color="primary" className="home__button" onClick={this.resetTags}>{this.buttonsNames[this.state.language][0]}</Button>
+                    <Button color="primary" className="home__button" onClick={this.changeLang}>{this.buttonsNames[this.state.language][1]}</Button>
+                    <Button color="primary"><Link className="home__button" to={{ pathname: '/main', state: { tags: this.state.selectedTags } }}>{this.buttonsNames[this.state.language][2]}</Link></Button>
                 </div>
             </div>
         )
