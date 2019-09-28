@@ -1,0 +1,17 @@
+.card {
+  width: 400px; 
+  height: 100px;
+	margin: 10px;
+}
+
+.grid-list {
+	width: 500;
+	height: 450;
+}
+
+.root {
+  display: 'flex';
+  flexWrap: 'wrap';
+  justifyContent: 'space-around';
+  overflow: 'hidden';
+}
