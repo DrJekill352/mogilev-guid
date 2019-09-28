@@ -22,7 +22,7 @@ class TripCard extends React.Component {
           {this.props.time && !this.props.img ? <p className="time">{this.props.time}h</p> : <div></div>}
         </div>
         <div style={{ padding: '10px' }}>
-          <Typography variant="h5" component="h2">
+          <Typography>
             {this.props.name}
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
