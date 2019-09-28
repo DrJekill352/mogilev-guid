@@ -104,7 +104,7 @@ export class HomeComponent extends React.Component {
                 </div>
                 <div className="home__buttons">
                     <Button color="primary" onClick={this.resetTags}>Reset</Button>
-                    <Button color="primary"><Link to={{ pathname: '/map', state: { tags: this.state.selectedTags } }}>Next</Link></Button>
+                    <Button color="primary"><Link to={{ pathname: '/main', state: { tags: this.state.selectedTags } }}>Next</Link></Button>
                 </div>
             </div>
         )
