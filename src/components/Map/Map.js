@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Fab from '@material-ui/core/Fab';
 import FilterListIcon from '@material-ui/icons/FilterList';
-import { YMaps, Map, Placemark, Button } from 'react-yandex-maps';
+import { Link } from "react-router-dom";
+import { YMaps, Map, Placemark, ZoomControl, GeolocationControl } from 'react-yandex-maps';
 import './Map.css';
 import { app } from '../../firebase';
 import { Math } from 'core-js';
@@ -20,6 +21,7 @@ export class MapComponent extends React.Component {
 
         this.state = {
             attractions: [],
+            isShowMe: false,
             coords: {
                 latitude: 53.908906,
                 longitude: 30.342816,
@@ -43,7 +45,7 @@ export class MapComponent extends React.Component {
     }
 
     getGeoLocation = () => {
-        navigator.geolocation.getCurrentPosition(({ coords }) => this.setState({ coords: coords }))
+        navigator.geolocation.getCurrentPosition(({ coords }) => this.setState({ coords: coords, isShowMe: true }))
     }
 
     calculateTime = (coords) => {
@@ -61,15 +63,25 @@ export class MapComponent extends React.Component {
     }
 
     render() {
-        const { attractions } = this.state
+        const { attractions, coords } = this.state
 
         return (
             <React.Fragment>
+                <Link to='/'>
+                    <Fab className="filter" color="primary">
+                        <FilterListIcon />
+                    </Fab>
+                </Link>
                 <YMaps query={({
                     lang: 'en_RU',
                     load: 'Map,Placemark,control.ZoomControl,control.FullscreenControl,geoObject.addon.balloon'
                 })}>
-                    <Map className='map' defaultState={{ center: [53.908906, 30.342816], zoom: 16 }} >
+                    <Map
+                        className='map'
+                        controls={['zoomControl', 'fullscreenControl']}
+                        options={{ yandexMapDisablePoiInteractivity: true, suppressMapOpenBlock: true }}
+                        state={{ center: [coords.latitude, coords.longitude], zoom: 16 }}
+                    >
                         {attractions.map(attraction => {
                             const id = attraction.name.split(' ').join('')
 
@@ -79,7 +91,7 @@ export class MapComponent extends React.Component {
                                     geometry={[attraction.geo.latitude, attraction.geo.longitude]}
                                     options={({
                                         preset: 'islands#circleIcon',
-                                        interactivityModel: 'default#opaque'
+                                        interactivityModel: 'default#opaque',
                                     })}
                                     properties={({
                                         balloonContentHeader: `<span> ${attraction.name}</span> `,
@@ -89,10 +101,12 @@ export class MapComponent extends React.Component {
                                 />
                             )
                         })}
-                        <FilterListIcon className="fab" />
+                        <ZoomControl options={{ float: 'right' }} />
+                        <GeolocationControl options={{ float: 'left' }} />
                     </Map>
                 </YMaps>
-            </React.Fragment>
+
+            </React.Fragment >
         )
     }
 }

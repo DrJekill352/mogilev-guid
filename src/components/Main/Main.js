@@ -10,7 +10,9 @@ import './Main.css';
 import { MapComponent } from '../Map/Map';
 import TripSelector from '../TripSelector';
 
-const propTypes = {}
+const propTypes = {
+    location: PropTypes.object,
+}
 const defaultProps = {}
 
 const tileData = [
@@ -48,6 +50,7 @@ export class MainComponent extends React.Component {
     }
 
     render() {
+        const { location } = this.props
         const { navigationTab } = this.state
 
         return (
@@ -64,7 +67,7 @@ export class MainComponent extends React.Component {
                 </div>
                 <div className={navigationTab === 'MAP' ? 'map-container' : ''}>
                     {navigationTab === 'MAP' && (
-                        <MapComponent />
+                        <MapComponent tags={location.state.tags && location.state.tags.length > 0 ? location.state.tags : undefined} />
                     )}
 										{navigationTab === 'FAVORITE' && (
 												<TripSelector tripData={tileData} />
