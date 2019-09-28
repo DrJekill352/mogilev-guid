@@ -72,6 +72,9 @@ export class MainComponent extends React.Component {
 										{navigationTab === 'FAVORITE' && (
 												<TripSelector tripData={tileData} />
 										)}
+										{navigationTab === 'ROUTER' && (
+												<TripSelector tripData={tileData} />
+										)}
                 </div>
             </div >
         )
