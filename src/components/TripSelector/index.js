@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -11,6 +12,9 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import ListSubheader from '@material-ui/core/ListSubheader';
+
+import MenuIcon from '@material-ui/icons/Menu';
+import SearchIcon from '@material-ui/icons/Search';
 
 import { app } from '../../firebase'
 import './index.css'
@@ -21,6 +25,18 @@ const defaultProps = {}
 
 
 const tileData = [
+	{
+		title: 'test'
+	},
+	{
+		title: 'test'
+	},
+	{
+		title: 'test'
+	},
+	{
+		title: 'test'
+	},
 	{
 		title: 'test'
 	},
@@ -50,15 +66,27 @@ export class TripSelectorComponent extends React.Component {
   render() {
     return (
       <div className="root">
-				<GridList cellHeight={180} cols={1} className="grid-list">
-					{tileData.map(tile => (
-						<GridListTile>
-							<Card className="card">
-
-							</Card>
-						</GridListTile>
-					))}
-				</GridList>
+				<div>
+					<div>
+						<ListSubheader component="div" className="list-header">
+							<Fab color="primary" className="menu-button">
+								<MenuIcon />
+							</Fab>
+							<p>{tileData.length} places total</p>
+							<Fab color="primary" className="menu-button">
+								<SearchIcon />
+							</Fab>
+						</ListSubheader>
+					</div>
+					<GridList cellHeight={90} cols={1} className="grid-list">
+						{tileData.map(tile => (
+							<GridListTile>
+								<Card className="card">
+								</Card>
+							</GridListTile>
+						))}
+					</GridList>
+				</div>
 			</div>
     )
   }

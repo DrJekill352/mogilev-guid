@@ -1,17 +1,43 @@
 .card {
-  width: 400px; 
-  height: 100px;
-	margin: 10px;
+  height: 75px;
+	margin: 5px;
+	border-radius: 8px;
+	background: #FFFFFF;
+  box-shadow: 0px 2px 10px rgba(34, 34, 34, 0.15);
 }
 
 .grid-list {
-	width: 500;
-	height: 450;
+	width: 400px;
+	height: 80vh;
+	scrollbar-width: none;
 }
 
 .root {
-  display: 'flex';
-  flexWrap: 'wrap';
-  justifyContent: 'space-around';
-  overflow: 'hidden';
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow: hidden !important;
 }
+
+.list-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+	padding: 15px 1px 0 1px !important;
+}
+
+.list-header > p {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 12px;
+  color: #C3C3C3;
+} 
+
+.menu-button {
+	width: 40px;
+	height: 40px;
+	background: #FFFFFF;
+  box-shadow: 0px 2px 10px rgba(34, 34, 34, 0.15);
+  border-radius: 16px;
+}	
