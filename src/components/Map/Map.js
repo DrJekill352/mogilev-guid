@@ -35,7 +35,8 @@ export class MapComponent extends React.Component {
         firebaseRows.onSnapshot(snapshot => {
             const attractions = snapshot.docs.reduce((accumulator, currentValue) => {
                 const data = currentValue.data()
-                if (data.tags.find(tag => tags.find(t => t === tag))) {
+                console.log('WWW', data.tags)
+                if (data.tags && data.tags.find(tag => tags.find(t => t === tag))) {
                     accumulator.push(data)
                 }
                 return accumulator
@@ -96,7 +97,7 @@ export class MapComponent extends React.Component {
                                     properties={({
                                         balloonContentHeader: `<span> ${attraction.name}</span> `,
                                         balloonContentBody: `<i>${this.calculateTime({ latitude: attraction.geo.latitude, longitude: attraction.geo.longitude })}</i>`,
-                                        balloonContentFooter: `<a class="attraction-link" href="http://localhost:3000/attraction/${id}"> More details </a> `
+                                        balloonContentFooter: `<a class="attraction-link" href="/attraction/${id}"> More details </a> `
                                     })}
                                 />
                             )

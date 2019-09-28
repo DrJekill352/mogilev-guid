@@ -29,16 +29,16 @@ const defaultProps = {}
 
 export class TripSelector extends React.Component {
 
-  componentDidMount() {
-    const firebaseRows = app.firestore().collection('test');
-    firebaseRows.onSnapshot(snapshot => {
-      snapshot.docs.forEach(d => console.log('TTT', d.data()))
-    })
-  }
+	componentDidMount() {
+		const firebaseRows = app.firestore().collection('test');
+		firebaseRows.onSnapshot(snapshot => {
+			snapshot.docs.forEach(d => console.log('TTT', d.data()))
+		})
+	}
 
-  render() {
-    return (
-      <div className="root">
+	render() {
+		return (
+			<div className="root">
 				<div>
 					<div>
 						<ListSubheader component="div" className="list-header">
@@ -54,14 +54,14 @@ export class TripSelector extends React.Component {
 					<GridList cellHeight={90} spacing={4} cols={1} className="grid-list">
 						{this.props.tripData.map(trip => (
 							<GridListTile>
-								<TripCard img={ trip.img } time={ trip.time } places={ trip.places } name={ trip.name } distance={ trip.distance } likes={ trip.likes }/>
+								<TripCard {...trip} />
 							</GridListTile>
 						))}
 					</GridList>
 				</div>
 			</div>
-    )
-  }
+		)
+	}
 }
 
 TripSelector.defaultProps = defaultProps

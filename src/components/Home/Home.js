@@ -13,8 +13,19 @@ export class HomeComponent extends React.Component {
     state = {
         language: "en",
         tags: {},
+        allTags: {},
         redirect: false,
         selsctedTags: []
+    }
+
+    buttonsNames = {
+        ru: ['СБРОС', 'ЯЗЫК', 'ДАЛЕЕ'],
+        en: ['RESET', 'LANG', 'NEXT']
+    }
+
+    logoText = {
+        en: 'Choose the most interesrring place you want to visit:',
+        ru: 'Выберите места, которые вы хотите посетить:'
     }
 
     constructor(props) {
@@ -22,30 +33,26 @@ export class HomeComponent extends React.Component {
         const firebaseRows = app.firestore().collection('tags');
         firebaseRows.onSnapshot(snapshot => {
             const res = snapshot.docs.map(d => d.data())[0];
-            if (this.state.language === "en") {
-                const tags = res.en.map((d) => {
-                    return ({ label: d, state: false })
-                })
-                this.setState({ tags: tags });
-            } else if (this.state.language === "ru") {
-                const tags = res.ru.map((d) => {
-                    return ({ label: d, state: false })
-                })
-                this.setState({ tags: tags });
-            }
+            this.setState({ tags: this.getTagLanguage(res, 'en'), allTags: res });
         })
+    }
+
+    getTagLanguage = (allTags, lang) => {
+        if (lang === "en") {
+            const tags = allTags.en.map((d) => {
+                return ({ label: d, state: false })
+            })
+            return (tags);
+        } else if (lang === "ru") {
+            const tags = allTags.ru.map((d) => {
+                return ({ label: d, state: false })
+            })
+            return (tags);
+        }
     }
 
     componentDidMount() {
 
-    }
-
-    getLogoText = () => {
-        if (this.state.language === "en") {
-            return ('Choose the most interesrring place you want to visit:');
-        } else if (this.state.language === "ru") {
-            return ('Выберите места, которые вы хотите посетить:');
-        }
     }
 
     resetTags = () => {
@@ -54,7 +61,15 @@ export class HomeComponent extends React.Component {
             d.state = false;
             return (d);
         })
-        this.setState({ tags: data });
+        this.setState({ tags: data, selsctedTags: [] });
+    }
+
+    changeLang = () => {
+        let lang = this.state.language;
+        lang = this.state.language === "en" ? "ru" : "en";
+        const tagsLang = this.getTagLanguage(this.state.allTags, lang);
+        this.setState({ tags: tagsLang, language: lang });
+
     }
 
     sendTagsToMap = () => {
@@ -79,9 +94,9 @@ export class HomeComponent extends React.Component {
             return (d);
         });
 
-        this.state.tags.forEach((d) => {
+        this.state.tags.forEach((d, i) => {
             if (d.state === true) {
-                selectedTags.push(d.label);
+                selectedTags.push(this.state.allTags.en[i]);
             }
         });
 
@@ -97,14 +112,15 @@ export class HomeComponent extends React.Component {
                 </div>
                 <div className="home__logo">
                     <div className="home__logoImgWrap"><img src={logo} alt={"logo"} className="home_logoImg" /></div>
-                    <div className="home__logoText">{this.getLogoText()} </div>
+                    <div className="home__logoText">{this.logoText[this.state.language]} </div>
                 </div>
                 <div className="home__tags">
                     <BubblesComponent tags={tags} tagStateCallback={this.updateTagsState}> </BubblesComponent>
                 </div>
                 <div className="home__buttons">
-                    <Button color="primary" onClick={this.resetTags}>Reset</Button>
-                    <Button color="primary"><Link to={{ pathname: '/main', state: { tags: this.state.selectedTags } }}>Next</Link></Button>
+                    <Button color="primary" className="home__button" onClick={this.resetTags}>{this.buttonsNames[this.state.language][0]}</Button>
+                    <Button color="primary" className="home__button" onClick={this.changeLang}>{this.buttonsNames[this.state.language][1]}</Button>
+                    <Button color="primary"><Link className="home__button" to={{ pathname: '/main', state: { tags: this.state.selectedTags } }}>{this.buttonsNames[this.state.language][2]}</Link></Button>
                 </div>
             </div>
         )
