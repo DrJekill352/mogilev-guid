@@ -10,7 +10,7 @@ export class MapComponent extends React.Component {
     render() {
         return (
             <YMaps>
-                <Map className="map" defaultState={{ center: [55.75, 37.57], zoom: 9 }} />
+                <Map className="map" defaultState={{ center: [53.908906, 30.342816], zoom: 16 }} />
             </YMaps>
         )
     }
