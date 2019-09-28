@@ -22,48 +22,12 @@ import { app } from '../../firebase'
 import './index.css'
 
 
-const propTypes = {}
+const propTypes = {
+	tripData: PropTypes.arrayOf(PropTypes.object)
+}
 const defaultProps = {}
 
-
-const tileData = [
-	{
-		img: 'http://vandrouka.by/wp-content/uploads/2012/11/Mogilev.jpg',
-		name: 'test',
-		distance: 300,
-		likes: 26
-	},
-	{
-		time: 1.6,
-		name: 'test',
-		distance: 300,
-		likes: 26,
-		places: 6
-	},
-	{
-		title: 'test'
-	},
-	{
-		title: 'test'
-	},
-	{
-		title: 'test'
-	},
-	{
-		title: 'test'
-	},
-	{
-		title: 'test'
-	},
-	{
-		title: 'test'
-	},
-	{
-		title: 'test'
-	}
-]
-
-export class TripSelectorComponent extends React.Component {
+export class TripSelector extends React.Component {
 
   componentDidMount() {
     const firebaseRows = app.firestore().collection('test');
@@ -81,16 +45,16 @@ export class TripSelectorComponent extends React.Component {
 							<Fab color="primary" className="menu-button">
 								<MenuIcon />
 							</Fab>
-							<p>{tileData.length} places total</p>
+							<p>{this.props.tripData.length} places total</p>
 							<Fab color="primary" className="menu-button">
 								<SearchIcon />
 							</Fab>
 						</ListSubheader>
 					</div>
-					<GridList cellHeight={90} cols={1} className="grid-list">
-						{tileData.map(tile => (
+					<GridList cellHeight={90} spacing={4} cols={1} className="grid-list">
+						{this.props.tripData.map(trip => (
 							<GridListTile>
-								<TripCard img={ tile.img } time={ tile.time } places={ tile.places } name={ tile.name } distance={ tile.distance } likes={ tile.likes }/>
+								<TripCard img={ trip.img } time={ trip.time } places={ trip.places } name={ trip.name } distance={ trip.distance } likes={ trip.likes }/>
 							</GridListTile>
 						))}
 					</GridList>
@@ -100,6 +64,8 @@ export class TripSelectorComponent extends React.Component {
   }
 }
 
-TripSelectorComponent.defaultProps = defaultProps
-TripSelectorComponent.propTypes = propTypes
-TripSelectorComponent.displayName = 'TripSelectorComponent'
+TripSelector.defaultProps = defaultProps
+TripSelector.propTypes = propTypes
+TripSelector.displayName = 'TripSelectorComponent'
+
+export default TripSelector;
