@@ -52,8 +52,8 @@ export class BubblesComponent extends React.Component {
                     offsetX: -0.05,
                     offsetY: -0.01,
                 }}
-                width={window.screen.height*0.45}
-                height={window.screen.height*0.45}
+                width={window.screen.height*0.5}
+                height={window.screen.height*0.5}
                 padding={0} // optional value, number that set the padding between bubbles
                 showLegend={false} // optional value, pass false to disable the legend.
                 labelFont={{
