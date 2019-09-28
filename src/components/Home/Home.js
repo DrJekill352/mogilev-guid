@@ -68,7 +68,7 @@ export class HomeComponent extends React.Component {
         let lang = this.state.language;
         lang = this.state.language === "en" ? "ru" : "en";
         const tagsLang = this.getTagLanguage(this.state.allTags, lang);
-        this.setState({ tags: tagsLang,  language: lang });
+        this.setState({ tags: tagsLang, language: lang });
 
     }
 
@@ -94,9 +94,9 @@ export class HomeComponent extends React.Component {
             return (d);
         });
 
-        this.state.tags.forEach((d) => {
+        this.state.tags.forEach((d, i) => {
             if (d.state === true) {
-                selectedTags.push(d.label);
+                selectedTags.push(this.state.allTags.en[i]);
             }
         });
 
