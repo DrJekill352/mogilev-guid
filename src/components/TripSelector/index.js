@@ -1,17 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import Fab from '@material-ui/core/Fab';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
 import ListSubheader from '@material-ui/core/ListSubheader';
+import { Link } from "react-router-dom";
 
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
@@ -42,9 +36,11 @@ export class TripSelector extends React.Component {
 				<div>
 					<div>
 						<ListSubheader component="div" className="list-header">
-							<Fab color="primary" className="menu-button">
-								<MenuIcon />
-							</Fab>
+							<Link to='/'>
+								<Fab color="primary" className="menu-button">
+									<MenuIcon />
+								</Fab>
+							</Link>
 							<p>{this.props.tripData.length} places total</p>
 							<Fab color="primary" className="menu-button">
 								<SearchIcon />
