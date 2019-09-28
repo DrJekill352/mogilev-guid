@@ -19,8 +19,8 @@ export class HomeComponent extends React.Component {
     }
 
     buttonsNames = {
-        en: ['RESET', 'LANG', 'NEXT'] ,
-        ru: ['СБРОС', 'ЯЗЫК', 'ДАЛЕЕ']   
+        ru: ['RESET', 'LANG', 'NEXT'] ,
+        en: ['СБРОС', 'ЯЗЫК', 'ДАЛЕЕ']   
     }
 
     constructor(props) {
