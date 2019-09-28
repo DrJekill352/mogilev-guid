@@ -44,7 +44,8 @@ export class BubblesComponent extends React.Component {
     }
 
     render() {
-
+        console.log (window.screen.height/3);
+        console.log (window.screen.width);
         return (
 
             <BubbleChart
@@ -53,17 +54,18 @@ export class BubblesComponent extends React.Component {
                     offsetX: -0.05,
                     offsetY: -0.01,
                 }}
-                width={300}
-                height={300}
+                width={window.screen.height*0.45}
+                height={window.screen.height*0.45}
                 padding={0} // optional value, number that set the padding between bubbles
                 showLegend={false} // optional value, pass false to disable the legend.
                 labelFont={{
                     family: 'Arial',
-                    size: 12,
+                    size: 11,
                     color: '#fff',
                     weight: 'regular'
                 }}
                 bubbleClickFun={this.bubbleClick}
+                overflow={true}
                 data={this.state.data}
             />
 

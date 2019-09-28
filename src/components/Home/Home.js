@@ -103,8 +103,8 @@ export class HomeComponent extends React.Component {
                     <BubblesComponent tags={tags} tagStateCallback={this.updateTagsState}> </BubblesComponent>
                 </div>
                 <div className="home__buttons">
-                    <Button color="primary" onClick={this.resetTags}>Reset</Button>
-                    <Button color="primary"><Link to={{ pathname: '/main', state: { tags: this.state.selectedTags } }}>Next</Link></Button>
+                    <Button color="primary" className="home__button" onClick={this.resetTags}>Reset</Button>
+                    <Button color="primary"><Link className="home__button" to={{ pathname: '/main', state: { tags: this.state.selectedTags } }}>Next</Link></Button>
                 </div>
             </div>
         )
