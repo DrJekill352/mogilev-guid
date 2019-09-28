@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { YMaps, Map, Placemark } from 'react-yandex-maps';
+import Fab from '@material-ui/core/Fab';
+import FilterListIcon from '@material-ui/icons/FilterList';
+import { YMaps, Map, Placemark, Button } from 'react-yandex-maps';
 import './Map.css';
 import { app } from '../../firebase';
 import { Math } from 'core-js';
@@ -62,32 +64,35 @@ export class MapComponent extends React.Component {
         const { attractions } = this.state
 
         return (
-            <YMaps query={({
-                lang: 'en_RU',
-                load: 'Map,Placemark,control.ZoomControl,control.FullscreenControl,geoObject.addon.balloon'
-            })}>
-                <Map className='map' defaultState={{ center: [53.908906, 30.342816], zoom: 16 }} >
-                    {attractions.map(attraction => {
-                        const id = attraction.name.split(' ').join('')
+            <React.Fragment>
+                <YMaps query={({
+                    lang: 'en_RU',
+                    load: 'Map,Placemark,control.ZoomControl,control.FullscreenControl,geoObject.addon.balloon'
+                })}>
+                    <Map className='map' defaultState={{ center: [53.908906, 30.342816], zoom: 16 }} >
+                        {attractions.map(attraction => {
+                            const id = attraction.name.split(' ').join('')
 
-                        return (
-                            <Placemark
-                                key={id}
-                                geometry={[attraction.geo.latitude, attraction.geo.longitude]}
-                                options={({
-                                    preset: 'islands#circleIcon',
-                                    interactivityModel: 'default#opaque'
-                                })}
-                                properties={({
-                                    balloonContentHeader: `<span> ${attraction.name}</span> `,
-                                    balloonContentBody: `<i>${this.calculateTime({ latitude: attraction.geo.latitude, longitude: attraction.geo.longitude })}</i>`,
-                                    balloonContentFooter: `<a class="attraction-link" href="http://localhost:3000/attraction/${id}"> More details </a> `
-                                })}
-                            />
-                        )
-                    })}
-                </Map>
-            </YMaps>
+                            return (
+                                <Placemark
+                                    key={id}
+                                    geometry={[attraction.geo.latitude, attraction.geo.longitude]}
+                                    options={({
+                                        preset: 'islands#circleIcon',
+                                        interactivityModel: 'default#opaque'
+                                    })}
+                                    properties={({
+                                        balloonContentHeader: `<span> ${attraction.name}</span> `,
+                                        balloonContentBody: `<i>${this.calculateTime({ latitude: attraction.geo.latitude, longitude: attraction.geo.longitude })}</i>`,
+                                        balloonContentFooter: `<a class="attraction-link" href="http://localhost:3000/attraction/${id}"> More details </a> `
+                                    })}
+                                />
+                            )
+                        })}
+                        <FilterListIcon className="fab" />
+                    </Map>
+                </YMaps>
+            </React.Fragment>
         )
     }
 }

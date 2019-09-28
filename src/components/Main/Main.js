@@ -29,18 +29,17 @@ export class MainComponent extends React.Component {
 
         return (
             <div className="main">
-                <div>
+                <div className="navigation-tabs">
                     <BottomNavigation
                         value={navigationTab}
                         onChange={this.handelNavigationTabChange}
-                        className="navigation-tabs"
                     >
                         <BottomNavigationAction value="FAVORITE" icon={<BookmarksIcon />} />
                         <BottomNavigationAction value="MAP" icon={<MapIcon />} />
                         <BottomNavigationAction value="ROUTER" icon={<SwapCallsIcon />} />
                     </BottomNavigation >
                 </div>
-                <div>
+                <div className={navigationTab === 'MAP' ? 'map-container' : ''}>
                     {navigationTab === 'MAP' && (
                         <MapComponent />
                     )}
