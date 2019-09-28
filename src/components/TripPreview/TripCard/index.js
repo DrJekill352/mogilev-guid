@@ -28,7 +28,7 @@ class TripCard extends React.Component {
 					<Typography variant="h5" component="h2">
 						{ this.props.name }
 					</Typography>
-					<p style={{fontSize: '12px'}}>
+					<p style={{fontSize: '12px', width: '200px'}}>
             { this.props.description }
           </p>
 					<Typography variant="subtitle1" color="textSecondary">

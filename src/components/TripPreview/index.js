@@ -30,19 +30,21 @@ const tripData = [
 	{
 		img: 'http://vandrouka.by/wp-content/uploads/2012/11/Mogilev.jpg',
 		name: 'Ratusha',
-    description: 'adfgdfgkk sldkjfgl ljhsdlfg hwlerhg lkjdlkfjg kjl',
+    description: 'Throughout its history, it burned many times...',
 		distance: 1250,
 		likes: 46
 	},
 	{
 		name: 'Maslennikov Museum',
     img: 'http://photos.wikimapia.org/p/00/01/89/87/00_big.jpg',
+    description: 'The museum is located in a building that is...',
 		distance: 390,
 		likes: 19,
 	},
 	{
 		name: 'The Skywatcher',
     img: 'https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fbelarusfacts.by%2Fupload%2Fphotos%2Fphoto_about%2Fp7200004_1.jpg&f=1&nofb=1',
+    description: 'A component of the architectural complex of the square is a bronze...',
 		distance: 180,
 		likes: 28,
 	}

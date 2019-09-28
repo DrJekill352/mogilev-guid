@@ -8,6 +8,7 @@ import SwapCallsIcon from '@material-ui/icons/SwapCalls';
 import { MapComponent } from '../Map/Map';
 import TripSelector from '../TripSelector';
 import { FavoriteComponent } from '../Favorite/Favorite';
+import TripsComponent from '../Trips';
 import './Main.css';
 
 const propTypes = {
@@ -73,7 +74,7 @@ export class MainComponent extends React.Component {
                         <FavoriteComponent />
                     )}
                     {navigationTab === 'ROUTER' && (
-                        <TripSelector tripData={tileData} />
+                        <TripsComponent />
                     )}
                 </div>
             </div >
