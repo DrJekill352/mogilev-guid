@@ -16,6 +16,8 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
+import TripCard from './TripCard';
+
 import { app } from '../../firebase'
 import './index.css'
 
@@ -26,10 +28,17 @@ const defaultProps = {}
 
 const tileData = [
 	{
-		title: 'test'
+		img: 'http://vandrouka.by/wp-content/uploads/2012/11/Mogilev.jpg',
+		name: 'test',
+		distance: 300,
+		likes: 26
 	},
 	{
-		title: 'test'
+		time: 1.6,
+		name: 'test',
+		distance: 300,
+		likes: 26,
+		places: 6
 	},
 	{
 		title: 'test'
@@ -81,8 +90,7 @@ export class TripSelectorComponent extends React.Component {
 					<GridList cellHeight={90} cols={1} className="grid-list">
 						{tileData.map(tile => (
 							<GridListTile>
-								<Card className="card">
-								</Card>
+								<TripCard img={ tile.img } time={ tile.time } places={ tile.places } name={ tile.name } distance={ tile.distance } likes={ tile.likes }/>
 							</GridListTile>
 						))}
 					</GridList>
