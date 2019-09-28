@@ -99,7 +99,7 @@ export class HomeComponent extends React.Component {
                 selectedTags.push(this.state.allTags.en[i]);
             }
         });
-        console.log(selectedTags);
+
         this.setState({ tags: data, selectedTags: selectedTags });
     }
 
