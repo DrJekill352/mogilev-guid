@@ -9,7 +9,7 @@ const defaultProps = {}
 export class BubblesComponent extends React.Component {
     constructor(props) {
         super(props);
-        const tags = props.tags;
+
         this.state = {
             data: {},
         }

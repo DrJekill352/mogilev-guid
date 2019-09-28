@@ -10,8 +10,6 @@ import Typography from '@material-ui/core/Typography';
 import { app } from '../../../firebase'
 import './style.css'
 
-const imgLink = 'http://vandrouka.by/wp-content/uploads/2012/11/Mogilev.jpg';
-
 class TripCard extends React.Component {
  componentDidMount() {
     const firebaseRows = app.firestore().collection('test');
@@ -35,8 +33,8 @@ class TripCard extends React.Component {
           </Typography>
 				</div>
 				<div style={{ flexGrow: 1 }}></div>
-				<div style={{ height: '100%', width: '60px', fontSize: 20 }}>
-					<p style={{ textAlign: 'center', lineHeight: '33px' }}>></p>
+				<div style={{ height: '100%', width: '50px', fontSize: 20 }}>
+					<p style={{ textAlign: 'center', lineHeight: '33px', color: '#45B8F3' }}>></p>
 				</div>
       </Card>
     )
